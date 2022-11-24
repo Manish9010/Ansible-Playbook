@@ -1,0 +1,31 @@
+---
+- name: update n1 server
+  hosts: n1
+  become: yes
+
+  tasks:
+  - name: install httpd
+    yum:
+      name: httpd
+      state: present
+
+  - name: install git
+    yum:
+      name: git
+      state: present
+
+  - name: start httpd
+    service:
+       name: httpd
+       state: started
+
+  - name: enable httpd
+    service:
+      name: httpd
+      enabled: yes
+
+  - name: pulling the code from github repo to host a webpage
+    git:
+      dest: /var/www/html
+      repo: https://github.com/Manish9010/mywebsitefin.git
+...
